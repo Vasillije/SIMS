@@ -1,0 +1,13 @@
+﻿<Window x:Class="SIMS.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SIMS"
+        mc:Ignorable="d"
+        xmlns:toolBar1="clr-namespace:SIMS.UI.Toolbar.View"
+        Title="MainWindow" Height="450" Width="800">
+    <DockPanel LastChildFill="True">
+        <toolBar1:ToolbarView x:Name="toolbar" DockPanel.Dock="Top"/>
+    </DockPanel>
+</Window>

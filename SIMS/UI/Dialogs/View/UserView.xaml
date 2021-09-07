@@ -49,7 +49,6 @@
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="JMBG" Binding="{Binding JMBG, Mode=OneWay}"/>
                                     <DataGridTextColumn Header="Email" Binding="{Binding Email, Mode=OneWay}"/>
-                                    <DataGridTextColumn Header="Password" Binding="{Binding Password, Mode=OneWay}"/>
                                     <DataGridTextColumn Header="First name" Binding="{Binding Firstname, Mode=OneWay}"/>
                                     <DataGridTextColumn Header="Last name" Binding="{Binding Lastname, Mode=OneWay}"/>
                                     <DataGridTextColumn Header="Cellphone" Binding="{Binding Cellphone, Mode=OneWay}"/>
@@ -96,7 +95,7 @@
                             Grid.Column="1"  Grid.Row="1" Width="200"  />
 
                                 <Label Grid.Column="0" Grid.Row="2" Content="Password: " />
-                                <PasswordBox x:Name="password"
+                                <PasswordBox x:Name="password" PasswordChanged="password_PasswordChanged"
                                         Grid.Column="1" Grid.Row="2" Width="200"/>
 
                                 <Label Grid.Column="0" Grid.Row="3" Content="First name: " />

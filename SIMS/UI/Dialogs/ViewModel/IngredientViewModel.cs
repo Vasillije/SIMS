@@ -1,4 +1,5 @@
 ﻿using SIMS.Model;
+using SIMS.Services;
 using SIMS.UI.Dialogs;
 using SIMS.UI.Dialogs.View;
 using SIMS.UI.Persistance;
@@ -13,7 +14,7 @@ namespace SIMS.UI.Dialogs.ViewModel
 {
     public class IngredientViewModel : BaseDialogViewModel
     {
-        private IngredientRepository repository = new IngredientRepository();
+        private IngredientService service = new IngredientService();
         private string sort;
         public IngredientViewModel(IngredientView view) : base(view, typeof(Ingredient))
         {
@@ -23,7 +24,7 @@ namespace SIMS.UI.Dialogs.ViewModel
 
         protected override void Init()
         {
-            Items = new ObservableCollection<Entity>(repository.GetAll());
+            Items = new ObservableCollection<Entity>(service.GetAll());
         }
 
         public string Sort
@@ -49,7 +50,7 @@ namespace SIMS.UI.Dialogs.ViewModel
             base.OkCommandExecute();
 
             ApplicationContext.Instance.Ingredients = new List<Entity>(Items);
-            repository.Save();
+            service.Save();
             Init();
         }
 
@@ -60,20 +61,20 @@ namespace SIMS.UI.Dialogs.ViewModel
 
         protected override Entity OkAfterEditDatabase()
         {
-            repository.Save();
+            service.Save();
             return SelectedItem;
         }
 
         protected override bool DatabaseRemove(Entity item)
         {
-            repository.Remove(item);
-            repository.Save();
+            service.Remove(item);
+            service.Save();
             return true;
         }
 
         protected override void DoSearch()
         {
-            Items = new ObservableCollection<Entity>(repository.Search(Search, Sort));
+            Items = new ObservableCollection<Entity>(service.Search(Search, Sort));
         }
 
     }

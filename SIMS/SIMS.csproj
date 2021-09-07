@@ -79,6 +79,10 @@
     <Compile Include="Model\ApplicationContext.cs" />
     <Compile Include="Model\ComboData.cs" />
     <Compile Include="Model\TableData.cs" />
+    <Compile Include="Services\BillService.cs" />
+    <Compile Include="Services\IngredientService.cs" />
+    <Compile Include="Services\MedicineService.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="UI\Dialogs\ViewModel\BaseDialogViewModel.cs" />
     <Compile Include="UI\Dialogs\ViewModel\BillViewModel.cs" />
     <Compile Include="UI\Dialogs\ViewModel\IngredientViewModel.cs" />

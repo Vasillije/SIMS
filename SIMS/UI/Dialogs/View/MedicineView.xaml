@@ -138,12 +138,8 @@
                                         Grid.Column="1" Grid.Row="3" Width="200"/>
 
                                 <Label Grid.Column="0" Grid.Row="4" Content="Accepted: " />
-                                <CheckBox IsChecked="{Binding Path=SelectedItem.Accepted, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True, ValidatesOnExceptions=True}"
+                                <CheckBox IsEnabled="{Binding IsDoctor}" IsChecked="{Binding Path=SelectedItem.Accepted, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True, ValidatesOnExceptions=True}"
                                         Grid.Column="1" Grid.Row="4" Width="200"/>
-
-                                <Label Grid.Column="0" Grid.Row="5" Content="Deleted: " Grid.ColumnSpan="2" Margin="0,28,200.6,-27.6" />
-                                <CheckBox IsChecked="{Binding Path=SelectedItem.Deleted, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True, ValidatesOnExceptions=True}"
-                                        Grid.Column="1" Grid.Row="5" Width="200" Margin="1.2,26,0.4,-25.6"/>
                             </Grid>
 
                             <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal" Margin="10">

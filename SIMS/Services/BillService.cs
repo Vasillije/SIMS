@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SIMS.Model;
+using SIMS.UI.Persistance;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +10,26 @@ namespace SIMS.Services
 {
     public class BillService
     {
+        private BillRepository repository = new BillRepository();
+
+        public IEnumerable<Entity> Search(string search, string sort)
+        {
+            return repository.Search(search, sort);
+        }
+
+        public IEnumerable<Entity> GetAll()
+        {
+            return repository.GetAll();
+        }
+
+        public void Save()
+        {
+            repository.Save();
+        }
+
+        public void Remove(Entity entity)
+        {
+            repository.Remove(entity);
+        }
     }
 }

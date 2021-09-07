@@ -14,6 +14,7 @@ namespace SIMS.Model
         private string quantity;
         private string ingredient;
         private bool accepted;
+        private bool answered;
         private bool deleted;
         private Dictionary<Ingredient, double> ingredients = new Dictionary<Ingredient, double>();
 
@@ -79,6 +80,16 @@ namespace SIMS.Model
                 accepted = value;
             }
         }
+
+        public bool Answered
+        {
+            get { return answered; }
+            set
+            {
+                answered = value;
+            }
+        }
+
         public bool Deleted
         {
             get { return deleted; }

@@ -7,8 +7,38 @@ using System.Threading.Tasks;
 
 namespace SIMS.UI.Persistance
 {
-    class MedicineRepository : Repository<Medicine>
+    public class MedicineRepository : Repository<Medicine>
     {
+
+        public override IEnumerable<Entity> GetAll()
+        {
+            List<Entity> result = new List<Entity>();
+
+            foreach (Entity entity in ApplicationContext.Instance.Medicines)
+            {
+                if (((Medicine)entity).Deleted)
+                {
+                    continue;
+                }
+
+                if (ApplicationContext.Instance.User != null && ApplicationContext.Instance.User.Usertype == "Pharmacists" && ((Medicine)entity).Accepted) 
+                {
+                    result.Add(entity);
+                }
+                else if (ApplicationContext.Instance.User != null && ApplicationContext.Instance.User.Usertype == "Patient")
+                {
+                    result.Add(entity);
+                }
+                else if (ApplicationContext.Instance.User != null && ApplicationContext.Instance.User.Usertype == "Doctor")
+                {
+                    result.Add(entity);
+                }
+
+            }
+
+            return result;
+        }
+
         public override IEnumerable<Entity> Search (string term = "", string sort = "")
         {
             List<Entity> result = new List<Entity>();

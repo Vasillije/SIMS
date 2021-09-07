@@ -1,5 +1,6 @@
 ﻿using SIMS.CompositeCommon.Enums;
 using SIMS.Model;
+using SIMS.Services;
 using SIMS.UI.Dialogs;
 using SIMS.UI.Dialogs.View;
 using SIMS.UI.Persistance;
@@ -9,12 +10,13 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace SIMS.UI.Dialogs.ViewModel
 {
     public class MedicineViewModel : BaseDialogViewModel
     {
-        private MedicineRepository repository = new MedicineRepository();
+        private MedicineService service = new MedicineService();
         private IngredientRepository ingredientRepository = new IngredientRepository();
         private string sort;
         private List<ComboData<Ingredient>> ingredients = new List<ComboData<Ingredient>>();
@@ -131,7 +133,7 @@ namespace SIMS.UI.Dialogs.ViewModel
 
         protected override void Init()
         {
-            Items = new ObservableCollection<Entity>(repository.GetAll());
+            Items = new ObservableCollection<Entity>(service.GetAll());
         }
 
         public string Sort
@@ -154,10 +156,17 @@ namespace SIMS.UI.Dialogs.ViewModel
 
         protected override void OkCommandExecute()
         {
+            if (ApplicationContext.Instance.User != null && ApplicationContext.Instance.User.Usertype == "Doctor")
+            {
+                ((Medicine)SelectedItem).Answered = true;
+            }
+
             base.OkCommandExecute();
 
+            
+
             ApplicationContext.Instance.Medicines = new List<Entity>(Items);
-            repository.Save();
+            service.Save();
             Init();
         }
 
@@ -168,20 +177,25 @@ namespace SIMS.UI.Dialogs.ViewModel
 
         protected override Entity OkAfterEditDatabase()
         {
-            repository.Save();
+            service.Save();
             return SelectedItem;
         }
 
         protected override bool DatabaseRemove(Entity item)
         {
-            repository.Remove(item);
-            repository.Save();
+            ((Medicine)item).Deleted = true;
+            service.Save();
             return true;
         }
 
         protected override void DoSearch()
         {
-            Items = new ObservableCollection<Entity>(repository.Search(Search, Sort));
+            Items = new ObservableCollection<Entity>(service.Search(Search, Sort));
+        }
+
+        public bool IsDoctor 
+        {
+            get { return ApplicationContext.Instance.User != null && ApplicationContext.Instance.User.Usertype == "Doctor"; }
         }
 
     }

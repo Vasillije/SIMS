@@ -9,10 +9,10 @@
     <DockPanel LastChildFill="True">
         <ToolBarTray DockPanel.Dock="Bottom">
             <ToolBar Height="50" HorizontalAlignment="Left" VerticalAlignment="Center" >
-                <Button Content="User" Command="{Binding UserCommand}" FontSize="20"></Button>
+                <Button  Visibility="{Binding ShowUsers}" Content="User" Command="{Binding UserCommand}" FontSize="20"></Button>
                 <Button Content="Medicine" Command="{Binding MedicineCommand}" FontSize="20"></Button>
                 <Button Content="Ingredient" Command="{Binding IngredientCommand}" FontSize="20"></Button>
-                <Button Content="Bill" Command="{Binding BillCommand}" FontSize="20"></Button>
+                <Button Visibility="{Binding ShowBills}" Content="Bill" Command="{Binding BillCommand}" FontSize="20"></Button>
 
             </ToolBar>
         </ToolBarTray>

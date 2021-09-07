@@ -1,4 +1,5 @@
-﻿using SIMS.UI.Dialogs.ViewModel;
+﻿using SIMS.Model;
+using SIMS.UI.Dialogs.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,11 +21,22 @@ namespace SIMS.UI.Dialogs.View
     /// </summary>
     public partial class UserView : Window
     {
+        UserViewModel viewModel;
         public UserView()
         {
             InitializeComponent();
+            viewModel = new UserViewModel(this);
+            DataContext = viewModel;
+        }
 
-            DataContext = new UserViewModel(this);
+        private void password_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            var passwordBox = sender as PasswordBox;
+            if ((passwordBox != null))
+            {
+                User user = ((DataContext as UserViewModel)).SelectedItem as User;
+                user.Password = passwordBox.Password;
+            }
         }
     }
 }

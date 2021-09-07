@@ -19,7 +19,7 @@ namespace SIMS.UI.Persistance
             return ApplicationContext.Instance.Get(typeof(TEntity)).Where(x => x.ID == id).FirstOrDefault();
         }
 
-        public IEnumerable<Entity> GetAll()
+        public virtual IEnumerable<Entity> GetAll()
         {
             return ApplicationContext.Instance.Get(typeof(TEntity));
         }

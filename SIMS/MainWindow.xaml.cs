@@ -29,10 +29,12 @@ namespace SIMS
             DataContext = mainViewModel;
             LoginView view = new LoginView(DataContext as MainWindowViewModel);
 
+            
+            view.ShowDialog();
+
             ((ToolbarViewModel)toolbar.DataContext).MainWindowViewModel = mainViewModel;
             mainViewModel.ToolbarViewModel = (ToolbarViewModel)toolbar.DataContext;
 
-            //view.ShowDialog();
         }
     }
 }

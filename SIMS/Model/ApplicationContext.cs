@@ -130,9 +130,10 @@ namespace SIMS.Model
                 medicine.Quantity = data[4];
                 medicine.Ingredient = data[5];
                 medicine.Accepted = bool.Parse(data[6]);
-                medicine.Deleted = bool.Parse(data[7]);
+                medicine.Answered = bool.Parse(data[7]);
+                medicine.Deleted = bool.Parse(data[8]);
 
-                string[] ingData = data[8].Split(',');
+                string[] ingData = data[9].Split(',');
 
                 foreach (string ingD in ingData) 
                 {
@@ -332,6 +333,7 @@ namespace SIMS.Model
                     line += ((Medicine)entity).Quantity + "|";
                     line += ((Medicine)entity).Ingredient + "|";
                     line += ((Medicine)entity).Accepted + "|";
+                    line += ((Medicine)entity).Answered + "|";
                     line += ((Medicine)entity).Deleted + "|";
 
                     string ingredeants = string.Empty;

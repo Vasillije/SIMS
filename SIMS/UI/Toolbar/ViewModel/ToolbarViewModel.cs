@@ -1,10 +1,12 @@
 ﻿using SIMS.CompositeCommon.Enums;
+using SIMS.Model;
 using SIMS.UI.Dialogs.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace SIMS.UI.Toolbar.ViewModel
 {
@@ -52,6 +54,8 @@ namespace SIMS.UI.Toolbar.ViewModel
             set
             {
                 mainWindowViewModel = value;
+                OnPropertyChanged(nameof(ShowUsers));
+                OnPropertyChanged(nameof(ShowBills));
             }
         }
 
@@ -79,5 +83,21 @@ namespace SIMS.UI.Toolbar.ViewModel
             view.ShowDialog();
         }
 
+
+        public Visibility ShowUsers 
+        {
+            get 
+            {
+                return ApplicationContext.Instance.User != null && ApplicationContext.Instance.User.Usertype == "Doctor" ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
+
+        public Visibility ShowBills
+        {
+            get
+            {
+                return ApplicationContext.Instance.User != null && ApplicationContext.Instance.User.Usertype == "Patient" ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
     }
 }

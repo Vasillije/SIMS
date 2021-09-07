@@ -25,8 +25,12 @@ namespace SIMS.UI.Dialogs.ViewModel
 
         protected override void Init()
         {
-            userTypes.Add(new ComboData<string>() { Name = "Doctor", Value = "Doctor" });
-            userTypes.Add(new ComboData<string>() { Name = "Pharmacists", Value = "Pharmacists" });
+            if (ApplicationContext.Instance.User != null && ApplicationContext.Instance.User.Usertype == "Pharmacists") 
+            {
+                userTypes.Add(new ComboData<string>() { Name = "Doctor", Value = "Doctor" });
+                userTypes.Add(new ComboData<string>() { Name = "Pharmacists", Value = "Pharmacists" });
+            }
+
             userTypes.Add(new ComboData<string>() { Name = "Patient", Value = "Patient" });
 
 
@@ -90,6 +94,11 @@ namespace SIMS.UI.Dialogs.ViewModel
         protected override void DoSearch()
         {
             Items = new ObservableCollection<Entity>(service.Search(Search, Sort));
+        }
+
+        public bool CanAddPermission 
+        {
+            get { return ApplicationContext.Instance.User != null && ApplicationContext.Instance.User.Usertype == "Doctor"; }
         }
 
     }

@@ -75,8 +75,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CompositeCommon\Core\Irepository.cs" />
+    <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="Model\ApplicationContext.cs" />
     <Compile Include="Model\ComboData.cs" />
+    <Compile Include="Model\TableData.cs" />
     <Compile Include="UI\Dialogs\ViewModel\BaseDialogViewModel.cs" />
     <Compile Include="UI\Dialogs\ViewModel\BillViewModel.cs" />
     <Compile Include="UI\Dialogs\ViewModel\IngredientViewModel.cs" />
@@ -99,7 +101,11 @@
     <Compile Include="UI\Persistance\MedicineRepository.cs" />
     <Compile Include="UI\Persistance\Repository.cs" />
     <Compile Include="UI\Persistance\UserRepository.cs" />
+    <Compile Include="UI\Toolbar\ViewModel\LoginViewModel.cs" />
     <Compile Include="UI\Toolbar\ViewModel\ToolbarViewModel.cs" />
+    <Compile Include="UI\Toolbar\View\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Toolbar\View\ToolbarView.xaml.cs">
       <DependentUpon>ToolbarView.xaml</DependentUpon>
     </Compile>
@@ -134,6 +140,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Dialogs\View\UserView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Toolbar\View\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

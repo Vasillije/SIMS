@@ -22,37 +22,73 @@
                                             AutoHideWidth="240">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
 
-                            <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
-                                <Label Content="Search: "/>
-                                <TextBox Width="150" Height="30" Margin="5" Grid.Column="0" Grid.Row="0" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"/>
-                                <ComboBox>
-                                    <ComboBoxItem>Name</ComboBoxItem>
-                                    <ComboBoxItem>Price</ComboBoxItem>
-                                    <ComboBoxItem>Quantity</ComboBoxItem>
-                                </ComboBox>
-                            </StackPanel>
+                            <Grid Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
 
-                            <DataGrid x:Name="DataGrid" Grid.Column="0" Grid.Row="1" IsEnabled="{Binding DataGridEnabled}" SelectionMode="Single" ItemsSource="{Binding Items, UpdateSourceTrigger=PropertyChanged}" HorizontalScrollBarVisibility="Auto"
+                                <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
+                                    <Label Content="Search: "/>
+                                    <TextBox Width="150" Height="30" Margin="5" Grid.Column="0" Grid.Row="0" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"/>
+                                    <ComboBox>
+                                        <ComboBoxItem>Name</ComboBoxItem>
+                                        <ComboBoxItem>Price</ComboBoxItem>
+                                        <ComboBoxItem>Quantity</ComboBoxItem>
+                                    </ComboBox>
+                                </StackPanel>
+
+                                <DataGrid x:Name="DataGrid" Grid.Column="0" Grid.Row="1" IsEnabled="{Binding DataGridEnabled}" SelectionMode="Single" ItemsSource="{Binding Items, UpdateSourceTrigger=PropertyChanged}" HorizontalScrollBarVisibility="Auto"
                                         SelectedItem="{Binding SelectedItem}" Height="Auto" AutoGenerateColumns="False" CanUserAddRows="False" ColumnWidth="*">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Name" Binding="{Binding Name, Mode=OneWay}"/>
-                                    <DataGridTextColumn Header="Manufacturer" Binding="{Binding Manufacturer, Mode=OneWay}"/>
-                                    <DataGridTextColumn Header="Price" Binding="{Binding Price, Mode=OneWay}"/>
-                                    <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity, Mode=OneWay}"/>
-                                    <DataGridTextColumn Header="Ingredient" Binding="{Binding Ingredient, Mode=OneWay}"/>
-                                    <DataGridTextColumn Header="Accepted" Binding="{Binding Accepted, Mode=OneWay}"/>
-                                    <DataGridTextColumn Header="Deleted" Binding="{Binding Deleted, Mode=OneWay}"/>
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Name" Binding="{Binding Name, Mode=OneWay}"/>
+                                        <DataGridTextColumn Header="Manufacturer" Binding="{Binding Manufacturer, Mode=OneWay}"/>
+                                        <DataGridTextColumn Header="Price" Binding="{Binding Price, Mode=OneWay}"/>
+                                        <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity, Mode=OneWay}"/>
+                                        <DataGridTextColumn Header="Accepted" Binding="{Binding Accepted, Mode=OneWay}"/>
+                                        <DataGridTextColumn Header="Deleted" Binding="{Binding Deleted, Mode=OneWay}"/>
 
-                                </DataGrid.Columns>
-                            </DataGrid>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
+
+                            <Grid Grid.Column="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                    <ComboBox Width="100" SelectedValue="{Binding Path=SelectedIngredient, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True, ValidatesOnExceptions=True}"
+                            ItemsSource="{Binding Path=Ingredients}"  DisplayMemberPath="Name" SelectedValuePath="Value" >
+                                    </ComboBox>
+                                    <TextBox Width="50" Text="{Binding Path=Quantity, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True, ValidatesOnExceptions=True}"></TextBox>
+                                    
+
+                                    <Button Content="Add" Command="{Binding AddIngredient}"></Button>
+                                </StackPanel>
+
+                                <DataGrid Grid.Row="1" SelectionMode="Single" ItemsSource="{Binding Data, UpdateSourceTrigger=PropertyChanged}" HorizontalScrollBarVisibility="Auto"
+                                         Height="Auto" AutoGenerateColumns="False" CanUserAddRows="False" ColumnWidth="*">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Name" Binding="{Binding Name, Mode=OneWay}"/>
+                                        <DataGridTextColumn Header="Quantity" Binding="{Binding Value, Mode=OneWay}"/>
+
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
                         </Grid>
+                        
 
                     </xcad:LayoutAnchorable>
                 </xcad:LayoutAnchorablePane>
@@ -101,18 +137,13 @@
                                 <TextBox Text="{Binding Path=SelectedItem.Quantity, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True, ValidatesOnExceptions=True}"
                                         Grid.Column="1" Grid.Row="3" Width="200"/>
 
-                                <Label Grid.Column="0" Grid.Row="4" Content="Ingredient: " />
-                                <TextBox Text="{Binding Path=SelectedItem.Ingredient, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True, ValidatesOnExceptions=True}"
+                                <Label Grid.Column="0" Grid.Row="4" Content="Accepted: " />
+                                <CheckBox IsChecked="{Binding Path=SelectedItem.Accepted, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True, ValidatesOnExceptions=True}"
                                         Grid.Column="1" Grid.Row="4" Width="200"/>
 
-                                <Label Grid.Column="0" Grid.Row="5" Content="Accepted: " />
-                                <CheckBox IsChecked="{Binding Path=SelectedItem.Accepted, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True, ValidatesOnExceptions=True}"
-                                        Grid.Column="1" Grid.Row="5" Width="200"/>
-
-                                <Label Grid.Column="0" Grid.Row="6" Content="Deleted: " Grid.ColumnSpan="2" Margin="0,28,200.6,-27.6" />
+                                <Label Grid.Column="0" Grid.Row="5" Content="Deleted: " Grid.ColumnSpan="2" Margin="0,28,200.6,-27.6" />
                                 <CheckBox IsChecked="{Binding Path=SelectedItem.Deleted, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True, ValidatesOnExceptions=True}"
-                                        Grid.Column="1" Grid.Row="6" Width="200" Margin="1.2,26,0.4,-25.6"/>
-
+                                        Grid.Column="1" Grid.Row="5" Width="200" Margin="1.2,26,0.4,-25.6"/>
                             </Grid>
 
                             <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal" Margin="10">

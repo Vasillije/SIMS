@@ -20,30 +20,68 @@
                 <xcad:LayoutAnchorablePane DockWidth="200">
                     <xcad:LayoutAnchorable ContentId="properties" Title="Data" CanHide="False" CanClose="False"
                                             AutoHideWidth="240">
+
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
 
-                            <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
-                                <Label Content="Search: "/>
-                                <TextBox Width="150" Height="30" Margin="5" Grid.Column="0" Grid.Row="0" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"/>
-                            </StackPanel>
+                            <Grid Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
 
-                            <DataGrid x:Name="DataGrid" Grid.Column="0" Grid.Row="1" IsEnabled="{Binding DataGridEnabled}" SelectionMode="Single" ItemsSource="{Binding Items, UpdateSourceTrigger=PropertyChanged}" HorizontalScrollBarVisibility="Auto"
+                                <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
+                                    <Label Content="Search: "/>
+                                    <TextBox Width="150" Height="30" Margin="5" Grid.Column="0" Grid.Row="0" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"/>
+                                </StackPanel>
+
+                                <DataGrid x:Name="DataGrid" Grid.Column="0" Grid.Row="1" IsEnabled="{Binding DataGridEnabled}" SelectionMode="Single" ItemsSource="{Binding Items, UpdateSourceTrigger=PropertyChanged}" HorizontalScrollBarVisibility="Auto"
                                         SelectedItem="{Binding SelectedItem}" Height="Auto" AutoGenerateColumns="False" CanUserAddRows="False" ColumnWidth="*">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Pharmacist" Binding="{Binding Pharmacist, Mode=OneWay}"/>
-                                    <DataGridTextColumn Header="Date and time" Binding="{Binding Dateandtime, Mode=OneWay}"/>
-                                    <DataGridTextColumn Header="Total price" Binding="{Binding Totalprice, Mode=OneWay}"/>
-                                </DataGrid.Columns>
-                            </DataGrid>
-                        </Grid>
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Pharmacist" Binding="{Binding Pharmacist, Mode=OneWay}"/>
+                                        <DataGridTextColumn Header="Date and time" Binding="{Binding Dateandtime, Mode=OneWay}"/>
+                                        <DataGridTextColumn Header="Total price" Binding="{Binding Totalprice, Mode=OneWay}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
 
+                            <Grid Grid.Column="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                    <ComboBox Width="100" SelectedValue="{Binding Path=SelectedMedicine, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True, ValidatesOnExceptions=True}"
+                            ItemsSource="{Binding Path=Medicines}"  DisplayMemberPath="Name" SelectedValuePath="Value" >
+                                    </ComboBox>
+                                    <TextBox Width="50" Text="{Binding Path=Quantity, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True, ValidatesOnExceptions=True}"></TextBox>
+
+
+                                    <Button Content="Add" Command="{Binding AddMedicine}"></Button>
+                                </StackPanel>
+
+                                <DataGrid Grid.Row="1" SelectionMode="Single" ItemsSource="{Binding Data, UpdateSourceTrigger=PropertyChanged}" HorizontalScrollBarVisibility="Auto"
+                                         Height="Auto" AutoGenerateColumns="False" CanUserAddRows="False" ColumnWidth="*">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Name" Binding="{Binding Name, Mode=OneWay}"/>
+                                        <DataGridTextColumn Header="Quantity" Binding="{Binding Value, Mode=OneWay}"/>
+
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
+                        </Grid>
+                        
+                       
                     </xcad:LayoutAnchorable>
                 </xcad:LayoutAnchorablePane>
                 <xcad:LayoutAnchorablePane DockWidth="200">
@@ -84,7 +122,7 @@
                                         Grid.Column="1" Grid.Row="1" Width="200"/>
 
                                 <Label Grid.Column="0" Grid.Row="2" Content="Totalprice: " />
-                                <TextBox Text="{Binding Path=SelectedItem.Totalprice, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True, ValidatesOnExceptions=True}"
+                                <TextBox IsEnabled="False" Text="{Binding Path=SelectedItem.Totalprice, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True, ValidatesOnExceptions=True}"
                                         Grid.Column="1" Grid.Row="2" Width="200"/>
                             </Grid>
 

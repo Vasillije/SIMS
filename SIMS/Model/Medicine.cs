@@ -8,9 +8,6 @@ namespace SIMS.Model
 {
     public class Medicine : Entity
     {
-        
-        
-        
         private string name;
         private string manufacturer;
         private string price;
@@ -18,6 +15,18 @@ namespace SIMS.Model
         private string ingredient;
         private bool accepted;
         private bool deleted;
+        private Dictionary<Ingredient, double> ingredients = new Dictionary<Ingredient, double>();
+
+        public Dictionary<Ingredient, double> Ingredients 
+        {
+            get { return ingredients; }
+            set 
+            {
+                ingredients = value;
+                OnPropertyChanged(nameof(Ingredients));
+            }
+        }
+
         public string Name
         {
             get { return name; }

@@ -1,4 +1,5 @@
 ﻿using SIMS.Model;
+using SIMS.Services;
 using SIMS.UI.Dialogs;
 using SIMS.UI.Dialogs.View;
 using SIMS.UI.Persistance;
@@ -13,7 +14,7 @@ namespace SIMS.UI.Dialogs.ViewModel
 {
     public class UserViewModel : BaseDialogViewModel
     {
-        private UserRepository repository = new UserRepository();
+        private UserService service = new UserService();
         private List<ComboData<string>> userTypes = new List<ComboData<string>>();
         private string sort;
         public UserViewModel (UserView view) : base (view, typeof(User))
@@ -29,7 +30,7 @@ namespace SIMS.UI.Dialogs.ViewModel
             userTypes.Add(new ComboData<string>() { Name = "Patient", Value = "Patient" });
 
 
-            Items = new ObservableCollection<Entity>(repository.GetAll());
+            Items = new ObservableCollection<Entity>(service.GetAll());
         }
 
         public List<ComboData<string>> UserTypes 
@@ -46,7 +47,14 @@ namespace SIMS.UI.Dialogs.ViewModel
             get { return sort; }
             set 
             {
-                sort = value;
+                string name = "";
+
+                if (value != null) 
+                {
+                    name = value.Split(':')[1].Trim();
+                }
+
+                sort = name;
                 OnPropertyChanged(nameof(Sort));
                 DoSearch();
             }
@@ -57,7 +65,7 @@ namespace SIMS.UI.Dialogs.ViewModel
             base.OkCommandExecute();
 
             ApplicationContext.Instance.Users = new List<Entity>(Items);
-            repository.Save();
+            service.Save();
             Init();
         }
 
@@ -68,20 +76,20 @@ namespace SIMS.UI.Dialogs.ViewModel
 
         protected override Entity OkAfterEditDatabase()
         {
-            repository.Save();
+            service.Save();
             return SelectedItem;
         }
 
         protected override bool DatabaseRemove(Entity item)
         {
-            repository.Remove(item);
-            repository.Save();
+            service.Remove(item);
+            service.Save();
             return true;
         }
 
         protected override void DoSearch()
         {
-            Items = new ObservableCollection<Entity>(repository.Search(Search, Sort));
+            Items = new ObservableCollection<Entity>(service.Search(Search, Sort));
         }
 
     }

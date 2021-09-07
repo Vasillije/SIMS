@@ -31,7 +31,14 @@ namespace SIMS.UI.Dialogs.ViewModel
             get { return sort; }
             set
             {
-                sort = value;
+                string name = "";
+
+                if (value != null)
+                {
+                    name = value.Split(':')[1].Trim();
+                }
+
+                sort = name;
                 OnPropertyChanged(nameof(Sort));
                 DoSearch();
             }

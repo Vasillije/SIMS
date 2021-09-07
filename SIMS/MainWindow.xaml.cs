@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SIMS.UI.Components.Login.View;
+using SIMS.UI.Toolbar.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,14 @@ namespace SIMS
         public MainWindow()
         {
             InitializeComponent();
+            MainWindowViewModel mainViewModel = new MainWindowViewModel();
+            DataContext = mainViewModel;
+            LoginView view = new LoginView(DataContext as MainWindowViewModel);
+
+            ((ToolbarViewModel)toolbar.DataContext).MainWindowViewModel = mainViewModel;
+            mainViewModel.ToolbarViewModel = (ToolbarViewModel)toolbar.DataContext;
+
+            //view.ShowDialog();
         }
     }
 }

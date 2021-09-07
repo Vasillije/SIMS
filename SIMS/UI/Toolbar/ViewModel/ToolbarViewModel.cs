@@ -14,7 +14,7 @@ namespace SIMS.UI.Toolbar.ViewModel
         private RelayCommand medicineCommand;
         private RelayCommand ingredientCommand;
         private RelayCommand billCommand;
-
+        private MainWindowViewModel mainWindowViewModel;
 
         public RelayCommand UserCommand
         {
@@ -43,6 +43,15 @@ namespace SIMS.UI.Toolbar.ViewModel
             get
             {
                 return billCommand ?? (billCommand = new RelayCommand(param => BillCommandExecute()));
+            }
+        }
+
+        public MainWindowViewModel MainWindowViewModel 
+        {
+            get { return mainWindowViewModel; }
+            set
+            {
+                mainWindowViewModel = value;
             }
         }
 

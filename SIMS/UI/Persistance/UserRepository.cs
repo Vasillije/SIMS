@@ -9,6 +9,20 @@ namespace SIMS.UI.Persistance
 {
     public class UserRepository : Repository<User>
     {
+        public User GetUserWithUsernameAndPassword(string email, string passwor) 
+        {
+            foreach (Entity entity in ApplicationContext.Instance.Users)
+            {
+                if (((User)entity).Email == email && ((User)entity).Password == passwor)
+                {
+                    return entity as User;
+                }
+            }
+
+            return null;
+        }
+
+
         public override IEnumerable<Entity> Search(string term="", string sort = "")
         {
             List<Entity> result = new List<Entity>();

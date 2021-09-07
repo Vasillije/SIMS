@@ -10,8 +10,17 @@ namespace SIMS.Model
     {
         private string pharmacist;
         private string dateandtime;
-        private Dictionary<Medicine, int> medicines;
+        private Dictionary<Medicine, double> medicines = new Dictionary<Medicine, double>();
         private float totalprice;
+
+        public Dictionary<Medicine, double> Medicines 
+        {
+            get { return medicines; }
+            set 
+            {
+                medicines = value;
+            }
+        }
 
         public string Pharmacist
         {
@@ -21,7 +30,6 @@ namespace SIMS.Model
                 pharmacist = value;
             }
         }
-
         
         public string Dateandtime
         {
@@ -30,16 +38,6 @@ namespace SIMS.Model
             {
                 dateandtime = value;
             }
-        }
-
-        public Dictionary<Medicine, int> Medicines
-        {
-            get { return medicines; }
-            set
-            {
-                medicines = value;
-            }
-
         }
 
         public float Totalprice
